@@ -1,7 +1,9 @@
+const dotenv = require('dotenv');
+
 const envFound = dotenv.config();
 
 if (envFound.error) {
-  throw new Error("Env file not found");
+  throw new Error('Env file not found');
 }
 
 module.exports = {
@@ -9,4 +11,5 @@ module.exports = {
   api: {
     prefix: '/api',
   },
-}
+  database_uri: process.env.DATABASE_URI,
+};

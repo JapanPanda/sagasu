@@ -4,15 +4,21 @@ const config = require('./config');
 
 const express = require('express');
 
+const logger = require('./loaders/logger');
+
 async function startServer() {
   const app = express();
 
-  app.listen(config.port, () => {
+  await require('./loaders')(app);
 
-  }).on((err) => {
-    
-    process.exit(1);
-  })
+  app
+    .listen(config.port, () => {
+      logger.info(`Listening on port ${config.port}`);
+    })
+    .on('error', (err) => {
+      logger.error(err);
+      process.exit(1);
+    });
 }
 
 startServer();
