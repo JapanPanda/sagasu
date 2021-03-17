@@ -1,4 +1,5 @@
 # Logs
+assets/anime-offline-database
 logs
 *.log
 npm-debug.log*
