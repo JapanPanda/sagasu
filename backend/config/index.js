@@ -15,4 +15,6 @@ module.exports = {
     prefix: '/api',
   },
   database_uri: process.env.DATABASE_URI,
+  recombee_id: process.env.RECOMBEE_ID,
+  recombee_token: process.env.RECOMBEE_TOKEN,
 };

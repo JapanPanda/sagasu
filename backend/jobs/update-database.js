@@ -10,6 +10,9 @@ const db = require('../loaders/database');
 
 const axios = require('axios');
 
+const recombee = require('recombee-api-client');
+const rqs = recombee.requests;
+
 const sleep = (ms) => {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -17,6 +20,9 @@ const sleep = (ms) => {
 };
 
 const updateGithubRepo = () => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
   // if github repo does not exist
   if (!fs.existsSync(path.join(dir, '/anime-offline-database'))) {
     logger.info('Offline database does not exist, cloning...');
@@ -77,8 +83,10 @@ const updatePostgreSQL = async () => {
     )
   );
 
-  const API_URL = 'http://localhost:9001/v3/anime/';
-  for (let anime in animeOfflineDB.data) {
+  // const API_URL = 'http://localhost:9001/v3/anime/';
+
+  const API_URL = 'https://api.jikan.moe/v3/anime/';
+  for (let anime = 0; anime < animeOfflineDB.data.length; anime++) {
     //"https://myanimelist.net/anime/5781"
     let sources = animeOfflineDB.data[anime].sources;
     let mal_source = null;
@@ -172,11 +180,85 @@ const updatePostgreSQL = async () => {
           });
       })
       .catch((err) => {
-        logger.error(`Error getting anime from api.\n${err.stack}`);
+        if (err.response) {
+          if (err.response.status == 429 || err.response.status == 403) {
+            anime--;
+          }
+        }
+        logger.error(
+          `Error getting anime from api.\n${err.response}\n${err.stack}`
+        );
       });
 
-    await sleep(2000);
+    await sleep(4000);
   }
+};
+
+const updateRecombee = async () => {
+  return client
+    .send(
+      new rqs.Batch([
+        new rqs.AddItemProperty('genres', 'set'),
+        new rqs.AddItemProperty('date', 'timestamp'),
+        new rqs.AddItemProperty('ranked', 'int'),
+        new rqs.AddItemProperty('popularity', 'int'),
+        new rqs.AddItemProperty('score', 'double'),
+        new rqs.AddItemProperty('title', 'string'),
+        new rqs.AddItemProperty('synopsis', 'string'),
+        new rqs.AddItemProperty('studio', 'set'),
+      ])
+    )
+    .then(() => {
+      db.manyOrNone(`SELECT * from anime;`).then((data) => {
+        // create requests
+        const requests = data.map((row) => {
+          let season = row.premiered.split(' ')[0];
+          let month = null;
+          if (season == 'Fall') {
+            month = 9;
+          } else if (season == 'Winter') {
+            month = 0;
+          } else if (season == 'Spring') {
+            month = 3;
+          } else {
+            month = 6;
+          }
+
+          return new rqs.SetItemValues(
+            row.mal_id,
+            {
+              genres: row.genres,
+              date: new Date(row.year, month).toISOString(),
+              ranked: row.ranked,
+              popularity: row.popularity,
+              score: row.score,
+              title: row.title,
+              synopsis: row.synopsis,
+              studio: row.studio,
+            },
+            {
+              cascadeCreate: true,
+            }
+          );
+        });
+
+        client
+          .send(new rqs.Batch(requests))
+          .then((res) => {
+            logger.info(
+              `Successfully updated Recombee's database of ${res.length} items.`
+            );
+          })
+          .catch((err) => {
+            logger.error(
+              `Error inserting entry ${row.mal_id}, index: 20.\n${err.stack}`
+            );
+          });
+      });
+    })
+    .catch((err) => {
+      logger.error(`Error adding item property.\n${err.stack}`);
+    });
 };
 
 const update = async () => {
@@ -185,8 +267,13 @@ const update = async () => {
 
   logger.info('Updating PostgreSQL database.');
   await updatePostgreSQL();
+
+  logger.info('Updating Recombee database.');
+  await updateRecombee();
+
+  logger.info('Finished updating.');
 };
 
-updatePostgreSQL();
+update();
 
 module.exports = update;

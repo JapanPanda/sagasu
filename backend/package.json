@@ -11,6 +11,7 @@
     "express": "^4.17.1",
     "pg": "^8.5.1",
     "pg-promise": "^10.9.2",
+    "recombee-api-client": "^3.2.0",
     "shelljs": "^0.8.4",
     "winston": "^3.3.3"
   },
