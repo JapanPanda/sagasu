@@ -54,7 +54,7 @@ const updateGithubRepo = () => {
 
 const updatePostgreSQL = async () => {
   await db.query(
-    `CREATE TABLE IF NOT EXISTS user(
+    `CREATE TABLE IF NOT EXISTS account(
       id SERIAL PRIMARY KEY,
       username text NOT NULL,
       email text NOT NULL,
