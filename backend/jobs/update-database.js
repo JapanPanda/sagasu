@@ -23,6 +23,7 @@ const updateGithubRepo = () => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
+
   // if github repo does not exist
   if (!fs.existsSync(path.join(dir, '/anime-offline-database'))) {
     logger.info('Offline database does not exist, cloning...');
@@ -52,6 +53,18 @@ const updateGithubRepo = () => {
 };
 
 const updatePostgreSQL = async () => {
+  await db.query(
+    `CREATE TABLE IF NOT EXISTS user(
+      id SERIAL PRIMARY KEY,
+      username text NOT NULL,
+      email text NOT NULL,
+      password text NOT NULL,
+      liked int[] NOT NULL,
+      disliked int[] NOT NULL,
+      saved int[] NOT NULL
+    );`
+  );
+
   await db
     .query(
       `CREATE TABLE IF NOT EXISTS anime(
