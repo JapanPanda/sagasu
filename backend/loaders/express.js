@@ -4,6 +4,10 @@ const cors = require('cors');
 const routes = require('../api');
 const config = require('../config');
 const passport = require('passport');
+const redis = require('redis');
+
+let RedisStore = require('connect-redis')(session);
+let redisClient = redis.createClient();
 
 module.exports = (app) => {
   app.get('/status', (req, res) => {
@@ -17,6 +21,8 @@ module.exports = (app) => {
 
   app.use(
     session({
+      // 6 months ttl
+      store: new RedisStore({ client: redisClient, ttl: 15552000 }),
       secret: config.session_secret,
       resave: false,
       saveUninitialized: false,
