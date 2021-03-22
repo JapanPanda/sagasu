@@ -6,6 +6,7 @@
   "dependencies": {
     "argon2": "^0.27.1",
     "axios": "^0.21.1",
+    "connect-redis": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -15,6 +16,7 @@
     "pg": "^8.5.1",
     "pg-promise": "^10.9.2",
     "recombee-api-client": "^3.2.0",
+    "redis": "^3.0.2",
     "shelljs": "^0.8.4",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
