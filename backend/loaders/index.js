@@ -9,7 +9,7 @@ module.exports = async (expressApp) => {
   }
 
   if (recombee !== null) {
-    logger.info('Established connectiong with recombee.');
+    logger.info('Established connection with recombee.');
   }
 
   await expressLoader(expressApp);

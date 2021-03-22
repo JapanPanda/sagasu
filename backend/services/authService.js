@@ -58,10 +58,28 @@ const signup = async (user) => {
     });
 };
 
+const loginSchema = yup.object().shape({
+  username: yup.string().required().min(3).max(16),
+  password: yup.string().required().min(6).max(254),
+});
+
+const login = async (user) => {
+  return loginSchema
+    .validate(user)
+    .then(async (validatedUser) => {
+      // validated user does not mean they are authenticated, just that the schema is valid
+    })
+    .catch((err) => {
+      logger.error(`Error signing up user.\n${err}`);
+
+      return { user: null, error: err };
+    });
+};
+
 const findUserbyUsername = async (username) => {
   return db
     .oneOrNone(
-      `SELECT username from account
+      `SELECT id, username, password from account
                   WHERE username = $1`,
       [username]
     )
@@ -79,7 +97,7 @@ const findUserbyUsername = async (username) => {
 const findUserbyEmail = async (email) => {
   return db
     .oneOrNone(
-      `SELECT email from account
+      `SELECT id, username, password, email from account
                   WHERE email = $1`,
       [email]
     )
@@ -94,6 +112,20 @@ const findUserbyEmail = async (email) => {
     });
 };
 
+const findUserbyId = async (id) => {
+  return db
+    .oneOrNone(`SELECT id from account WHERE id = $1`, [id])
+    .then((user) => {
+      return user;
+    })
+    .catch((err) => {
+      logger.error(`Error querying for user through id ${id}.\n${err}`);
+      throw new Error(`Error querying for user through id ${id}.\n${err}`);
+    });
+};
+
 module.exports = {
   signup: signup,
+  findUserbyId: findUserbyId,
+  findUserbyUsername: findUserbyUsername,
 };

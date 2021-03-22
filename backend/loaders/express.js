@@ -1,8 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const session = require('express-session');
 const cors = require('cors');
 const routes = require('../api');
 const config = require('../config');
+const passport = require('passport');
 
 module.exports = (app) => {
   app.get('/status', (req, res) => {
@@ -11,7 +12,21 @@ module.exports = (app) => {
 
   app.use(cors());
 
-  app.use(bodyParser.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+
+  app.use(
+    session({
+      secret: config.session_secret,
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  require('./passport');
 
   app.use(config.api.prefix, routes());
 
