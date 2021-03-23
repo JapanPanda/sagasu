@@ -26,6 +26,9 @@ module.exports = (app) => {
       secret: config.session_secret,
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        maxAge: 15552000000,
+      },
     })
   );
 
