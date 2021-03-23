@@ -58,29 +58,11 @@ const signup = async (user) => {
     });
 };
 
-const loginSchema = yup.object().shape({
-  username: yup.string().required().min(3).max(16),
-  password: yup.string().required().min(6).max(254),
-});
-
-const login = async (user) => {
-  return loginSchema
-    .validate(user)
-    .then(async (validatedUser) => {
-      // validated user does not mean they are authenticated, just that the schema is valid
-    })
-    .catch((err) => {
-      logger.error(`Error signing up user.\n${err}`);
-
-      return { user: null, error: err };
-    });
-};
-
 const findUserbyUsername = async (username) => {
   return db
     .oneOrNone(
       `SELECT id, username, password from account
-                  WHERE username = $1`,
+                  WHERE lower(username) = lower($1)`,
       [username]
     )
     .then((user) => {
@@ -98,7 +80,7 @@ const findUserbyEmail = async (email) => {
   return db
     .oneOrNone(
       `SELECT id, username, password, email from account
-                  WHERE email = $1`,
+                  WHERE lower(email) = lower($1)`,
       [email]
     )
     .then((user) => {
