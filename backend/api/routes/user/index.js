@@ -17,6 +17,14 @@ module.exports = (app) => {
     return res.json(`Successfully signed up ${user.username}.`);
   });
 
+  route.get('/isLoggedIn', (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ loggedIn: false });
+    }
+
+    return res.status(200).json({ loggedIn: true });
+  });
+
   route.post('/login', passport.authenticate('local'), (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
@@ -25,6 +33,12 @@ module.exports = (app) => {
 
       if (!user) {
         return res.status(400).json(info);
+      }
+
+      if (req.body.remember) {
+        req.session.cookie.maxAge = 3600000 * 24 * 138;
+      } else {
+        req.session.cookie.maxAge = 3600000 * 24;
       }
 
       return res.status(200).json({ msg: 'Successfully logged in.' });
