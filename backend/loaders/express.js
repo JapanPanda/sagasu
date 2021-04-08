@@ -14,7 +14,12 @@ module.exports = (app) => {
     res.status(200).end();
   });
 
-  app.use(cors());
+  var corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  };
+
+  app.use(cors(corsOptions));
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
@@ -28,6 +33,7 @@ module.exports = (app) => {
       saveUninitialized: false,
       cookie: {
         maxAge: 15552000000,
+        path: '/',
       },
     })
   );
