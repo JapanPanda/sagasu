@@ -62,8 +62,6 @@ module.exports = (app) => {
     }
   });
 
-  // TODO: UNLIKE AND UNDISLIKE
-
   route.post('/dislike', async (req, res) => {
     if (!req.isAuthenticated()) {
       return res.status(400).json({ err: 'Not logged in' });
