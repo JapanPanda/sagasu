@@ -25,14 +25,14 @@ module.exports = (app) => {
     return res.status(200).json({ loggedIn: true });
   });
 
-  route.post('/login', passport.authenticate('local'), (req, res, next) => {
+  route.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
         return next(err);
       }
 
       if (!user) {
-        return res.status(400).json(info);
+        return res.status(401).json(info);
       }
 
       if (req.body.remember) {
@@ -41,7 +41,13 @@ module.exports = (app) => {
         req.session.cookie.maxAge = 3600000 * 24;
       }
 
-      return res.status(200).json({ msg: 'Successfully logged in.' });
+      req.login(user, (err) => {
+        if (err) {
+          logger.error(err);
+          return res.status(400).json({ msg: 'Something went wrong.' });
+        }
+        return res.status(200).json({ msg: 'Successfully logged in.' });
+      });
     })(req, res, next);
   });
 
