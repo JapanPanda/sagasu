@@ -5,7 +5,35 @@
   transform: translate(-50%, 0);
   width: 90%;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #3f3f3f;
   z-index: 100000;
+  /* overflow: hidden; */
+}
+
+.top-bar {
+  background-color: #525252;
+  padding: 5px 10px;
+  z-index: 10000000;
+}
+
+.body {
+  background-color: #3f3f3f;
+  padding: 35px 10px;
+  z-index: 10000000;
+}
+
+.close {
+  float: right;
+}
+
+p {
+  margin: 0;
+}
+
+.title {
+  font-family: 'Poppins', 'sans-serif';
+  font-weight: bold;
+}
+
+.error {
+  border: #ec2431 solid 1px;
 }

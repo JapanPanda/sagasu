@@ -1,38 +1,123 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+a {
+  text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a:visited {
+  color: inherit;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  color: #d6d4d2;
+  background-color: #313131;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input {
+  position: relative;
+  z-index: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.flash {
+  z-index: 10000000;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type='text'],
+input[type='password'] {
+  display: block;
+  margin-bottom: 10px;
+  border: 0;
+  border-radius: 8px;
+  color: #d6d4d2;
+  background-color: #525252;
+  padding: 7px;
+  width: 100%;
+}
+
+input[type='submit'] {
+  font-family: 'Poppins', 'sans-serif';
+  -webkit-appearance: none;
+  color: #d6d4d2;
+  border: 0;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #525252;
+}
+
+input[type='submit']:hover {
+  background-color: #444444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.checkbox input[type='checkbox'] {
+  width: auto;
+  opacity: 0.00000001;
+  position: absolute;
+  left: 0;
+  margin-left: -20px;
+}
+.checkbox label {
+  position: relative;
+}
+.checkbox label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 4px;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.28s ease;
+  border-radius: 3px;
+  border: 2px solid #ec2431;
+  cursor: pointer;
+}
+.checkbox label:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid #ec2431;
+  border-left: 2px solid #ec2431;
+  -webkit-transform: rotate(-45deg) scale(0);
+  transform: rotate(-45deg) scale(0);
+  transition: transform ease 0.25s;
+  will-change: transform;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+}
+
+.checkbox input[type='checkbox']:checked ~ label::before {
+  color: #ec2431;
+  cursor: pointer;
+}
+
+.checkbox input[type='checkbox']:checked ~ label::after {
+  -webkit-transform: rotate(-45deg) scale(1);
+  transform: rotate(-45deg) scale(1);
+}
+
+.checkbox label {
+  min-height: 34px;
+  display: block;
+  padding-left: 40px;
+  margin-bottom: 0;
+  font-weight: normal;
+  /* cursor: pointer; */
+  vertical-align: sub;
+}
+.checkbox label span {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.checkbox input[type='checkbox']:focus + label::before {
+  outline: 0;
 }
