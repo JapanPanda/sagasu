@@ -2,8 +2,12 @@ import { createState } from '@hookstate/core';
 
 const initialState = {
   loggedIn: false,
-  flashMessage: '',
-  showFlash: true,
+  flashMessage: {
+    title: '',
+    msg: '',
+    error: false,
+  },
+  showFlash: false,
 };
 
 const globalState = createState(initialState);
