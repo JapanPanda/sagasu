@@ -12,29 +12,66 @@ const Login = () => {
 
   const state = useGlobalState(globalState);
   const { loggedIn } = state.get();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        process.env.REACT_APP_SERVER_URL + '/api/user/login',
-        {
-          username: username,
-          password: password,
-          remember: remember,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          state.loggedIn.set(true);
-          navigate('/');
-        } else {
-          state.loggedIn.set(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+    if (username === '' && password === '') {
+      state.flashMessage.set({
+        title: 'Login Error',
+        error: true,
+        msg: 'Username and password are empty!',
       });
+      state.showFlash.set(true);
+      state.loggedIn.set(false);
+    } else if (username === '') {
+      state.flashMessage.set({
+        title: 'Login Error',
+        error: true,
+        msg: 'Username is empty!',
+      });
+      state.showFlash.set(true);
+      state.loggedIn.set(false);
+    } else if (password === '') {
+      state.flashMessage.set({
+        title: 'Login Error',
+        error: true,
+        msg: 'Password is empty!',
+      });
+      state.showFlash.set(true);
+      state.loggedIn.set(false);
+    } else {
+      axios
+        .post(
+          process.env.REACT_APP_SERVER_URL + '/api/user/login',
+          {
+            username: username,
+            password: password,
+            remember: remember,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            state.loggedIn.set(true);
+            navigate('/');
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            console.log(err.response.data.msg);
+            console.log(state.showFlash);
+            state.flashMessage.set({
+              title: 'Login Error',
+              error: true,
+              msg: err.response.data.msg,
+            });
+            state.showFlash.set(true);
+            state.loggedIn.set(false);
+          } else {
+            console.error(err);
+          }
+        });
+    }
   };
 
   useEffect(() => {
@@ -68,16 +105,16 @@ const Login = () => {
           />
         </div>
 
-        <div class='checkbox'>
+        <div className='checkbox'>
           <input
             type='checkbox'
             id='checkbox'
-            onClick={() => {
+            onChange={() => {
               setRemember(!remember);
             }}
             checked={remember}
           />
-          <label for='checkbox'>
+          <label htmlFor='checkbox'>
             <span>Remember Me</span>
           </label>
         </div>
