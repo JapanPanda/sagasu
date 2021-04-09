@@ -24,7 +24,8 @@ input {
 }
 
 input[type='text'],
-input[type='password'] {
+input[type='password'],
+input[type='email'] {
   display: block;
   margin-bottom: 10px;
   border: 0;
@@ -61,9 +62,11 @@ input[type='submit']:hover {
   left: 0;
   margin-left: -20px;
 }
+
 .checkbox label {
   position: relative;
 }
+
 .checkbox label:before {
   content: '';
   position: absolute;
@@ -77,6 +80,7 @@ input[type='submit']:hover {
   border: 2px solid #ec2431;
   cursor: pointer;
 }
+
 .checkbox label:after {
   content: '';
   display: block;
