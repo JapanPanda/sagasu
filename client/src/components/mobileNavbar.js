@@ -35,42 +35,46 @@ const MobileNavbar = ({ signOut }) => {
       </nav>
       {loggedIn && (
         <Slide top unmountOnExit duration={500} when={expand}>
-          <nav className='expanded-navbar'>
-            <div className='navbar-item'>Saved</div>
-            <div className='navbar-item'>Likes</div>
-            <div className='navbar-item'>Dislikes</div>
-            <div className='navbar-item'>Account</div>
-            <div className='navbar-item'>
-              <Link to='/' onClick={_signOut}>
-                Sign Out
-              </Link>
-            </div>
-          </nav>
+          {expand && (
+            <nav className='expanded-navbar'>
+              <div className='navbar-item'>Saved</div>
+              <div className='navbar-item'>Likes</div>
+              <div className='navbar-item'>Dislikes</div>
+              <div className='navbar-item'>Account</div>
+              <div className='navbar-item'>
+                <Link to='/' onClick={_signOut}>
+                  Sign Out
+                </Link>
+              </div>
+            </nav>
+          )}
         </Slide>
       )}
       {!loggedIn && (
         <Slide top unmountOnExit duration={500} when={expand}>
-          <nav className='expanded-navbar'>
-            <div className='navbar-item'>
-              <Link
-                onClick={() => {
-                  setExpand(false);
-                }}
-                to='/login'>
-                Log In
-              </Link>
-            </div>
-            <div className='navbar-item'>
-              <Link
-                onClick={() => {
-                  setExpand(false);
-                }}
-                to='/signup'>
-                Sign Up
-              </Link>
-            </div>
-            <div className='navbar-item'>Github</div>
-          </nav>
+          {expand && (
+            <nav className='expanded-navbar'>
+              <div className='navbar-item'>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/login'>
+                  Log In
+                </Link>
+              </div>
+              <div className='navbar-item'>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/signup'>
+                  Sign Up
+                </Link>
+              </div>
+              <div className='navbar-item'>Github</div>
+            </nav>
+          )}
         </Slide>
       )}
     </div>
