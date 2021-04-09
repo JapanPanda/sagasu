@@ -13,14 +13,14 @@ passport.use(
       const user = await authService.findUserbyUsername(username);
       if (!user) {
         return done(null, false, {
-          msg: `Could not find user with username ${username}`,
+          msg: `Invalid username or password.`,
         });
       }
 
       const success = await argon.verify(user.password, password);
 
       if (!success) {
-        return done(null, false, { msg: `Invalid password!` });
+        return done(null, false, { msg: `Invalid username or password.` });
       }
 
       done(null, user);
