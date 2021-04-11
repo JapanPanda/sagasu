@@ -10,6 +10,8 @@ const signupSchema = yup.object().shape({
   username: yup.string().required().min(3).max(16),
   password: yup.string().required().min(6).max(254),
   email: yup.string().required().email(),
+  liked: yup.array().required(),
+  disliked: yup.array().required(),
 });
 
 const signup = async (user) => {
@@ -40,7 +42,14 @@ const signup = async (user) => {
         .none(
           `INSERT INTO account(username, email, password, liked, disliked, saved)
                 VALUES($1, $2, $3, $4, $5, $6);`,
-          [user.username, user.email, hashedPassword, [], [], []]
+          [
+            user.username,
+            user.email,
+            hashedPassword,
+            user.liked,
+            user.disliked,
+            [],
+          ]
         )
         .then(() => {
           logger.info(`Successfully added user ${user.username} to database.`);
