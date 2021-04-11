@@ -28,7 +28,7 @@ const FlashMessage = () => {
             />
           </span>
         </div>
-        <div className='body'>
+        <div className='flash-body'>
           <p>{flashMessage.msg}</p>
         </div>
       </div>
