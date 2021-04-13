@@ -1,0 +1,22 @@
+.search-input-container {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.search-input-container input {
+  font-size: inherit;
+  margin: 0px;
+  margin-right: 0.2em;
+
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.search-input-container button {
+  font-size: inherit;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}

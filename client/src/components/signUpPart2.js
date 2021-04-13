@@ -5,7 +5,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AnimeList from './animeList';
 
-const SignUpPart2 = ({ setPage, setPart2, part2 }) => {
+const SignUpPart2 = ({ submit, setPage, setPart2, part2 }) => {
   const [results, setResults] = useState([]);
   const [disliked, setDisliked] = useState([]);
   const [query, setQuery] = useState('');
@@ -19,27 +19,27 @@ const SignUpPart2 = ({ setPage, setPart2, part2 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPart2(disliked);
+    submit();
   };
 
   const handleAdd = (anime) => {
-    if (disliked.includes(anime.title)) {
+    if (disliked.filter((e) => e.title === anime.title).length > 0) {
       return;
     }
+
     const tmp = [...disliked];
-    tmp.push(anime.title);
+    tmp.push(anime);
     setDisliked(tmp);
+    setPart2(tmp);
   };
 
   const handleDel = (anime) => {
     let tmp = [...disliked];
     if (anime.title !== undefined) {
-      tmp = tmp.filter((item) => item !== anime.title);
-    } else {
-      // for animeList deletion
-      tmp = tmp.filter((item) => item !== anime);
-      console.log(tmp);
+      tmp = tmp.filter((item) => item.title !== anime.title);
     }
     setDisliked(tmp);
+    setPart2(tmp);
   };
 
   const handleSearch = () => {
@@ -48,7 +48,6 @@ const SignUpPart2 = ({ setPage, setPart2, part2 }) => {
         params: { anime: query },
       })
       .then((res) => {
-        console.log(res.data);
         setResults(res.data);
       })
       .catch((err) => {

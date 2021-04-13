@@ -3,78 +3,48 @@ import axios from 'axios';
 import { navigate } from '@reach/router';
 import { useState as useGlobalState } from '@hookstate/core';
 import globalState from '../hookstate/globalState';
-import './login.css';
+
+import './signUp.css';
+
+import SignUpPart0 from './signUpPart0';
+import SignUpPart1 from './signUpPart1';
+import SignUpPart2 from './signUpPart2';
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [agree, setAgree] = useState(false);
+  const [page, setPage] = useState(0);
+  const [part0, setPart0] = useState(null);
+  const [part1, setPart1] = useState(null);
+  const [part2, setPart2] = useState(null);
 
   const state = useGlobalState(globalState);
   const { loggedIn } = state.get();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submit = () => {
+    axios
+      .post(process.env.REACT_APP_SERVER_URL + '/api/user/signup', {
+        username: part0.username,
+        email: part0.email,
+        password: part0.password,
+        liked: part1.map((anime) => anime.mal_id),
+        disliked: part2.map((anime) => anime.mal_id),
+      })
+      .then((res) => {
+        if (res.data.error === undefined) {
+          state.flashMessage.set({
+            msg: `${part0.username} has been signed up successfully!`,
+            title: 'Successful Sign Up',
+            error: false,
+          });
+          state.showFlash.set(true);
 
-    if (
-      username === '' ||
-      password === '' ||
-      confirmPassword === '' ||
-      email === ''
-    ) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Please fill out all the fields.',
+          navigate('/login');
+        } else {
+          console.error(res.data.error);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
       });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else if (!agree) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Please agree to the terms and services in order to sign up.',
-      });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else if (password !== confirmPassword) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Passwords are not matching!',
-      });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else {
-      axios
-        .post(
-          process.env.REACT_APP_SERVER_URL + '/api/user/signup',
-          {
-            username: username,
-            password: password,
-            email: email,
-          },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            state.flashMessage.set({
-              title: 'Signup Successful',
-              error: false,
-              msg:
-                'You have successfully signed up! Please check your e-mail to confirm your registration.',
-            });
-            state.showFlash.set(true);
-            state.loggedIn.set(false);
-            navigate('/login');
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
   };
 
   useEffect(() => {
@@ -85,65 +55,20 @@ const SignUp = () => {
 
   return (
     <div className='login'>
-      <div className='header'>
-        <h3>「ようこそ」</h3>
-        <h1>Sign Up</h1>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className='textinput'>
-          <label>Username</label>
-          <input
-            type='text'
-            value={username}
-            onChange={(val) => setUsername(val.target.value)}
-          />
-        </div>
-
-        <div className='textinput'>
-          <label>E-mail</label>
-          <input
-            value={email}
-            type='email'
-            onChange={(val) => setEmail(val.target.value)}
-          />
-        </div>
-
-        <div className='textinput'>
-          <label>Password</label>
-          <input
-            value={password}
-            type='password'
-            onChange={(val) => setPassword(val.target.value)}
-          />
-        </div>
-
-        <div className='textinput'>
-          <label>Confirm Password</label>
-          <input
-            value={confirmPassword}
-            type='password'
-            onChange={(val) => setConfirmPassword(val.target.value)}
-          />
-        </div>
-
-        <div className='checkbox'>
-          <input
-            type='checkbox'
-            id='checkbox'
-            onChange={() => {
-              setAgree(!agree);
-            }}
-            checked={agree}
-          />
-          <label htmlFor='checkbox'>
-            <span>
-              I agree to the <u>terms and services</u>.
-            </span>
-          </label>
-        </div>
-
-        <input className='submit-button' type='submit' value='Sign Up' />
-      </form>
+      {page === 0 && (
+        <SignUpPart0 part0={part0} setPart0={setPart0} setPage={setPage} />
+      )}
+      {page === 1 && (
+        <SignUpPart1 part1={part1} setPart1={setPart1} setPage={setPage} />
+      )}
+      {page === 2 && (
+        <SignUpPart2
+          submit={submit}
+          part2={part2}
+          setPart2={setPart2}
+          setPage={setPage}
+        />
+      )}
     </div>
   );
 };

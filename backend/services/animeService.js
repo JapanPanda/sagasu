@@ -6,9 +6,9 @@ const searchAnime = async (query) => {
   return db
     .manyOrNone(
       `
-    SELECT image_url, title, title_eng
+    SELECT image_url, title, title_eng, year, mal_id
     FROM ANIME
-    WHERE title ILIKE $1
+    WHERE title ILIKE $1 OR title_eng ILIKE $1
     `,
       [`%${query}%`]
     )

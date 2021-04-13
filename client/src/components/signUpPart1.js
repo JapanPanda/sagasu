@@ -23,24 +23,23 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
   };
 
   const handleAdd = (anime) => {
-    if (liked.includes(anime.title)) {
+    if (liked.filter((e) => e.title === anime.title).length > 0) {
       return;
     }
+
     const tmp = [...liked];
-    tmp.push(anime.title);
+    tmp.push(anime);
     setLiked(tmp);
+    setPart1(tmp);
   };
 
   const handleDel = (anime) => {
     let tmp = [...liked];
     if (anime.title !== undefined) {
-      tmp = tmp.filter((item) => item !== anime.title);
-    } else {
-      // for animeList deletion
-      tmp = tmp.filter((item) => item !== anime);
-      console.log(tmp);
+      tmp = tmp.filter((item) => item.title !== anime.title);
     }
     setLiked(tmp);
+    setPart1(tmp);
   };
 
   const handleSearch = () => {
