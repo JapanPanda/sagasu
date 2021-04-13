@@ -1,0 +1,59 @@
+.filter-result {
+  display: flex;
+  font-size: 0.8rem;
+  border-bottom: solid #313131 2px;
+  /* margin-bottom: 10px; */
+  padding: 7px;
+  cursor: pointer;
+}
+
+.filter-result h4 {
+  margin: 0;
+  margin-bottom: 2px;
+}
+
+.filter-result-image img {
+  margin-right: 7px;
+  width: 70px;
+  height: 100%;
+}
+
+.filter-result-titles {
+  width: 90%;
+}
+
+.filter-result-title {
+  font-size: 1em;
+  text-align: left;
+  line-height: 1.1em;
+  margin-bottom: 2px;
+}
+
+.filter-result-title-eng {
+  color: #d6d4d2;
+  font-style: italic;
+  font-size: 0.9em;
+  text-align: left;
+  line-height: 1.1em;
+}
+
+.filter-result-year {
+  color: #d6d4d2;
+  font-size: 0.9em;
+  text-align: left;
+  line-height: 1.1em;
+}
+
+.add-item {
+  display: flex;
+  align-items: flex-end;
+  font-size: 1.2em;
+}
+
+.add-icon {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #292929;
+}

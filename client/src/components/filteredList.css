@@ -1,0 +1,18 @@
+.filtered-list {
+  height: 40vh;
+  background-color: #414141;
+  overflow-y: auto;
+  margin-bottom: 3%;
+}
+
+.empty-filtered-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-message {
+  margin-top: -5%;
+  margin-bottom: 0%;
+  color: #515151;
+}
