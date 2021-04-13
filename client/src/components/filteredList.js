@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FilterResult from './filterResult';
 import './filteredList.css';
 

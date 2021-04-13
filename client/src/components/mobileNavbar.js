@@ -24,7 +24,9 @@ const MobileNavbar = ({ signOut }) => {
   return (
     <div>
       <nav className='navbar'>
-        <span className='navbar-logo'>Sagasu.</span>
+        <Link to='/'>
+          <span className='navbar-logo'>Sagasu.</span>
+        </Link>
         <span className='navbar-item'>
           <FontAwesomeIcon
             onClick={() => expandMenu()}

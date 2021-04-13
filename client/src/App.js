@@ -11,12 +11,18 @@ import axios from 'axios';
 import MobileNavbar from './components/mobileNavbar';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faTimes,
+  faSearch,
+  faPlus,
+  faMinus,
+} from '@fortawesome/free-solid-svg-icons';
 import FlashMessage from './components/flashMessage';
 
 import Fade from 'react-reveal/Fade';
 
-library.add(faBars, faTimes);
+library.add(faBars, faTimes, faSearch, faPlus, faMinus);
 
 const App = () => {
   const state = useGlobalState(globalState);

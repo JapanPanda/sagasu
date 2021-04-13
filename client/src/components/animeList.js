@@ -26,7 +26,7 @@ const AnimeList = ({ filtered, delAnime, empty_msg }) => {
           return (
             <li className='anime-list-entry'>
               <div className='anime-list-title'>
-                <h3>{anime}</h3>
+                <h3>{anime.title}</h3>
               </div>
               <div className='anime-list-remove'>
                 <FontAwesomeIcon

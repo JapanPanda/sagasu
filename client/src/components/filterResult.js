@@ -4,7 +4,7 @@ import './filterResult.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const FilterResult = ({ filtered, anime, addAnime, delAnime }) => {
-  const selected = filtered.includes(anime.title);
+  const selected = filtered.filter((e) => e.title === anime.title).length > 0;
   return (
     <li
       onClick={() => {
