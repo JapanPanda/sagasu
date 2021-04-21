@@ -1,5 +1,7 @@
 const logger = require('../loaders/logger');
 
+const sagasuService = require('./sagasuService');
+
 const db = require('../loaders/database');
 
 const yup = require('yup');
@@ -39,20 +41,25 @@ const signup = async (user) => {
 
       // attempt to insert user into database
       return db
-        .none(
+        .one(
           `INSERT INTO account(username, email, password, liked, disliked, saved)
-                VALUES($1, $2, $3, $4, $5, $6);`,
-          [
-            user.username,
-            user.email,
-            hashedPassword,
-            user.liked,
-            user.disliked,
-            [],
-          ]
+                VALUES($1, $2, $3, $4, $5, $6)
+                RETURNING id;`,
+          [user.username, user.email, hashedPassword, [], [], []]
         )
-        .then(() => {
+        .then((res) => {
           logger.info(`Successfully added user ${user.username} to database.`);
+
+          // attempt to like and dislike all the animes (perhaps find a better way to do this)
+
+          for (let anime of user.liked) {
+            sagasuService.likeAnime(anime, res.id);
+          }
+
+          for (let anime of user.disliked) {
+            sagasuService.dislikeAnime(anime, res.id);
+          }
+
           return { user: user, error: null };
         })
         .catch((err) => {
