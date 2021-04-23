@@ -2,6 +2,7 @@ import { createState } from '@hookstate/core';
 
 const initialState = {
   loggedIn: false,
+  loading: false,
   flashMessage: {
     title: '',
     msg: '',

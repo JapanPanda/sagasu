@@ -17,16 +17,31 @@ import {
   faSearch,
   faPlus,
   faMinus,
+  faHeart,
+  faMeh,
+  faHeartBroken,
 } from '@fortawesome/free-solid-svg-icons';
 import FlashMessage from './components/flashMessage';
 
 import Fade from 'react-reveal/Fade';
+import Sagasu from './components/sagasu';
+import Loader from './components/loader';
+import LikedAnime from './components/likedAnime';
 
-library.add(faBars, faTimes, faSearch, faPlus, faMinus);
+library.add(
+  faBars,
+  faHeartBroken,
+  faMeh,
+  faHeart,
+  faTimes,
+  faSearch,
+  faPlus,
+  faMinus
+);
 
 const App = () => {
   const state = useGlobalState(globalState);
-  const { loggedIn, showFlash } = state.get();
+  const { loggedIn, showFlash, loading } = state.get();
 
   const signOut = () => {
     axios
@@ -81,10 +96,19 @@ const App = () => {
           <FlashMessage />
         </Fade>
       </div>
+      {loading && (
+        <div className='loader-container'>
+          <div className='loader'>
+            <Loader />
+          </div>
+        </div>
+      )}
       <Router>
         <Home path='/' />
         <Login path='/login' />
         <SignUp path='/signup' />
+        <Sagasu path='/sagasu' />
+        <LikedAnime path='/liked' />
       </Router>
     </div>
   );

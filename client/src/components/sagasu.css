@@ -1,0 +1,141 @@
+.anime-card {
+  width: 92%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.anime-image img {
+  border-radius: 5% 5% 0% 0%;
+  width: 100%;
+  display: block;
+}
+
+.anime-title {
+  margin-bottom: 10px;
+  color: #d4cece;
+}
+
+.anime-info {
+  background-color: #414141;
+  margin: 0;
+  padding: 7px 7px;
+}
+
+.anime-info h3 {
+  color: #d6d4d2;
+  text-align: left;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 2px;
+  line-height: 1.3em;
+}
+
+.anime-info h5 {
+  font-size: 0.9em;
+  margin: 0px;
+}
+
+.anime-meta {
+  border-radius: 5px;
+  background-color: #313131;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.anime-meta p:first-child {
+  font-weight: bold;
+}
+
+.anime-meta p {
+  font-family: 'Roboto', 'sans-serif';
+}
+
+.anime-synopsis {
+  border-radius: 5px;
+  background-color: #313131;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.anime-synopsis p:first-child {
+  font-weight: bold;
+}
+
+.anime-synopsis p {
+  font-family: 'Roboto', 'sans-serif';
+}
+
+.anime-rankings {
+  border-radius: 5px;
+  background-color: #313131;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+}
+
+.anime-rankings h4 {
+  margin: 0;
+  margin-bottom: 3px;
+  color: #d4cece;
+}
+
+.anime-ranking-column {
+  width: 33%;
+}
+
+.anime-ranking-column h4 {
+  font-size: 1em;
+}
+
+.anime-ranking-column h5 {
+  font-size: 1.5em;
+}
+
+.anime-ranking-column:nth-child(2) {
+  border-left: solid #d6d4d2 1px;
+  border-right: solid #d6d4d2 1px;
+}
+
+.anime-genres {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.anime-genres span {
+  display: inline-block;
+  background-color: #313131;
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 3px 8px;
+  font-weight: bold;
+  margin: 0 3px;
+  margin-bottom: 3px;
+}
+
+.anime-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.anime-buttons a {
+  padding: 10px 15px;
+  width: 45%;
+  color: #ffffff !important;
+  font-family: 'Poppins', 'sans-serif';
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.anime-mal-button {
+  background-color: #1d439b;
+}
+
+.anime-anilist-button {
+  background-color: #3577ff;
+}

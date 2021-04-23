@@ -1,0 +1,36 @@
+.sagasu-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #414141;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.sagasu-bar button {
+  width: 25%;
+  padding: 0;
+  background: none;
+  font-size: 2.3em;
+}
+
+.sagasu-bar button:hover {
+  background: #313131;
+}
+
+.heart {
+  color: #ec2431;
+}
+
+.plus {
+  color: rgb(115, 183, 185);
+}
+
+.meh {
+  /* color: ivory; */
+}
+
+.heart-broken {
+  color: #a3444b;
+}
