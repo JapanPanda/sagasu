@@ -9,7 +9,7 @@ const recombeeClient = require('../loaders/recombee');
 const recommendAnime = async (user_id) => {
   return recombeeClient
     .send(
-      new rqs.RecommendItemsToUser(user_id, 5, {
+      new rqs.RecommendItemsToUser(user_id, 1, {
         rotationRate: 0,
         cascadeCreate: true,
       })
