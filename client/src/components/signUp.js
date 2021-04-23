@@ -54,7 +54,7 @@ const SignUp = () => {
   }, [loggedIn]);
 
   return (
-    <div className='login'>
+    <div className='signup'>
       {page === 0 && (
         <SignUpPart0 part0={part0} setPart0={setPart0} setPage={setPage} />
       )}

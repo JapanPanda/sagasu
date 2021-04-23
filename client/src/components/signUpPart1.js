@@ -48,7 +48,6 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
         params: { anime: query },
       })
       .then((res) => {
-        console.log(res.data);
         setResults(res.data);
       })
       .catch((err) => {
