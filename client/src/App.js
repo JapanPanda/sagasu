@@ -20,6 +20,7 @@ import {
   faHeart,
   faMeh,
   faHeartBroken,
+  faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 import FlashMessage from './components/flashMessage';
 
@@ -36,7 +37,8 @@ library.add(
   faTimes,
   faSearch,
   faPlus,
-  faMinus
+  faMinus,
+  faEdit
 );
 
 const App = () => {
@@ -60,28 +62,45 @@ const App = () => {
 
   const checkLoggedIn = useCallback(() => {
     const tempState = state.loggedIn;
-    axios
-      .get(process.env.REACT_APP_SERVER_URL + '/api/user/isLoggedIn', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.loggedIn) {
-          if (loggedIn !== true) {
-            tempState.set(true);
-          }
-        } else {
-          if (loggedIn !== false) {
-            tempState.set(false);
-          }
+    // axios
+    //   .get(process.env.REACT_APP_SERVER_URL + '/api/user/isLoggedIn', {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.loggedIn) {
+    //       if (loggedIn !== true) {
+    //         tempState.set(true);
+    //       }
+    //     } else {
+    //       if (loggedIn !== false) {
+    //         tempState.set(false);
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     if (err.response.status === 401) {
+    //       if (loggedIn) {
+    //         tempState.set(false);
+    //       }
+    //     }
+    //   });
+
+    // checks if user has a session without http requests
+    if (document.cookie.indexOf('loggedIn=') !== -1) {
+      if (loggedIn) {
+        if (loggedIn !== true) {
+          tempState.set(true);
         }
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          if (loggedIn) {
-            tempState.set(false);
-          }
+      } else {
+        if (loggedIn !== false) {
+          tempState.set(false);
         }
-      });
+      }
+    } else {
+      if (loggedIn) {
+        tempState.set(false);
+      }
+    }
   }, [loggedIn, state.loggedIn]);
 
   useEffect(() => {
@@ -108,7 +127,7 @@ const App = () => {
         <Login path='/login' />
         <SignUp path='/signup' />
         <Sagasu path='/sagasu' />
-        <LikedAnime path='/liked' />
+        <LikedAnime path='/likes' />
       </Router>
     </div>
   );

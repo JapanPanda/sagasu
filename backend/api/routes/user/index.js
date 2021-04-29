@@ -37,13 +37,26 @@ module.exports = (app) => {
 
       if (req.body.remember) {
         req.session.cookie.maxAge = 3600000 * 24 * 138;
+        // dummy cookie to detect session cookie
+        res.cookie('loggedIn', 'true', {
+          maxAge: 3600000 * 24 * 138,
+          httpOnly: false,
+        });
       } else {
         req.session.cookie.maxAge = 3600000 * 24;
+        // dummy cookie to detect session cookie
+        res.cookie('loggedIn', 'true', {
+          maxAge: 3600000 * 24,
+          httpOnly: false,
+        });
       }
 
       req.login(user, (err) => {
         if (err) {
           logger.error(err);
+          res.cookie('loggedIn', 'false', {
+            maxAge: 0,
+          });
           return res.status(400).json({ msg: 'Something went wrong.' });
         }
         return res.status(200).json({ msg: 'Successfully logged in.' });
