@@ -39,12 +39,51 @@ const MobileNavbar = ({ signOut }) => {
         <Slide top unmountOnExit duration={500} when={expand}>
           {expand && (
             <nav className='expanded-navbar'>
-              <div className='navbar-item'>Saved</div>
-              <div className='navbar-item'>Likes</div>
-              <div className='navbar-item'>Dislikes</div>
+              <div className='navbar-item'>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/sagasu'>
+                  Sagasu
+                </Link>
+              </div>
+              <div className='navbar-item'>
+                {' '}
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/saves'>
+                  Saves
+                </Link>
+              </div>
+              <div className='navbar-item'>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/likes'>
+                  Likes
+                </Link>
+              </div>
+              <div className='navbar-item'>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                  to='/dislikes'>
+                  Dislikes
+                </Link>
+              </div>
               <div className='navbar-item'>Account</div>
               <div className='navbar-item'>
-                <Link to='/' onClick={_signOut}>
+                <Link
+                  onClick={() => {
+                    setExpand(false);
+                    _signOut();
+                  }}
+                  to='/'>
                   Sign Out
                 </Link>
               </div>

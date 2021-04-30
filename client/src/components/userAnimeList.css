@@ -1,0 +1,46 @@
+.user-anime-list {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.user-anime-entry {
+  border-radius: 8px;
+  background-color: #414141;
+  padding: 8px;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.user-anime-image {
+  margin-right: 10px;
+}
+
+.user-anime-image img {
+  width: 50px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+}
+
+.user-anime-modify {
+  margin-left: auto;
+  font-size: 1.2em;
+}
+
+.user-anime-info h3 {
+  text-align: left;
+  font-size: 0.9em;
+  line-height: 1.1em;
+  margin-bottom: 3px;
+}
+
+.user-anime-info h5 {
+  font-size: 0.8em;
+  line-height: 1.1em;
+  text-align: left;
+  margin: 0;
+}
+
+.user-anime-modify-icon {
+  cursor: pointer;
+}

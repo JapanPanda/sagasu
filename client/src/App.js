@@ -28,6 +28,8 @@ import Fade from 'react-reveal/Fade';
 import Sagasu from './components/sagasu';
 import Loader from './components/loader';
 import LikedAnime from './components/likedAnime';
+import SavedAnime from './components/savedAnime';
+import DislikedAnime from './components/dislikedAnime';
 
 library.add(
   faBars,
@@ -87,19 +89,11 @@ const App = () => {
 
     // checks if user has a session without http requests
     if (document.cookie.indexOf('loggedIn=') !== -1) {
-      if (loggedIn) {
-        if (loggedIn !== true) {
-          tempState.set(true);
-        }
-      } else {
-        if (loggedIn !== false) {
-          tempState.set(false);
-        }
+      if (loggedIn !== true) {
+        tempState.set(true);
       }
-    } else {
-      if (loggedIn) {
-        tempState.set(false);
-      }
+    } else if (loggedIn) {
+      tempState.set(false);
     }
   }, [loggedIn, state.loggedIn]);
 
@@ -128,6 +122,8 @@ const App = () => {
         <SignUp path='/signup' />
         <Sagasu path='/sagasu' />
         <LikedAnime path='/likes' />
+        <SavedAnime path='/saves' />
+        <DislikedAnime path='/dislikes' />
       </Router>
     </div>
   );
