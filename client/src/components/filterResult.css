@@ -15,7 +15,9 @@
 .filter-result-image img {
   margin-right: 7px;
   width: 70px;
-  height: 100%;
+  height: 100px;
+  object-fit: cover;
+  display: block;
 }
 
 .filter-result-titles {

@@ -24,7 +24,11 @@ const Sagasu = () => {
         state.loading.set(false);
       })
       .catch((err) => {
-        navigate('/login');
+        if (err.response && err.response.status === 400) {
+          navigate('/login');
+        } else {
+          console.error(err);
+        }
       });
   };
 
@@ -151,8 +155,8 @@ const Sagasu = () => {
             </div>
 
             <div className='anime-genres'>
-              {currentAnime.genres.map((genre) => {
-                return <span>{genre}</span>;
+              {currentAnime.genres.map((genre, i) => {
+                return <span key={i}>{genre}</span>;
               })}
             </div>
 

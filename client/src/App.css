@@ -147,6 +147,8 @@ li {
   position: fixed;
   width: 100vw;
   top: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .loader {

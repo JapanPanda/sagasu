@@ -43,6 +43,13 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
+        state.flashMessage.set({
+          title: 'Signup Error',
+          error: true,
+          msg: 'Something went wrong...',
+        });
+        state.showFlash.set(true);
+        state.loggedIn.set(false);
         console.error(err);
       });
   };
