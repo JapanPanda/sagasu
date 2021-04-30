@@ -5,7 +5,7 @@ import './loader.css';
 const Loader = () => {
   // loader taken from https://loading.io/css/
   return (
-    <div class='lds-heart'>
+    <div className='lds-heart'>
       <div></div>
     </div>
   );

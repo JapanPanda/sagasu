@@ -40,6 +40,7 @@ const Login = () => {
       state.showFlash.set(true);
       state.loggedIn.set(false);
     } else {
+      state.loading.set(true);
       axios
         .post(
           process.env.REACT_APP_SERVER_URL + '/api/user/login',
@@ -53,6 +54,7 @@ const Login = () => {
         .then((res) => {
           if (res.status === 200) {
             state.loggedIn.set(true);
+            state.loading.set(false);
             navigate('/');
           }
         })

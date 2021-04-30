@@ -15,6 +15,11 @@ module.exports = (app) => {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
     }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     const recommended = await sagasuService.recommendAnime(req.user.id);
     if (recommended == null) {
       return res.status(400).json({ err: 'Something went wrong.' });
@@ -28,6 +33,10 @@ module.exports = (app) => {
     if (!req.isAuthenticated()) {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
+    }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
     }
 
     try {
@@ -50,6 +59,11 @@ module.exports = (app) => {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
     }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     try {
       const data = await sagasuService.likeAnime(req.body.mal_id, req.user.id);
 
@@ -69,6 +83,10 @@ module.exports = (app) => {
     if (!req.isAuthenticated()) {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
+    }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
     }
 
     try {
@@ -95,6 +113,10 @@ module.exports = (app) => {
       return res.status(400).json({ err: 'Not logged in' });
     }
 
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     try {
       const data = await sagasuService.getDislikedAnimes(req.user.id, true);
 
@@ -114,6 +136,10 @@ module.exports = (app) => {
     if (!req.isAuthenticated()) {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
+    }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
     }
 
     try {
@@ -140,6 +166,10 @@ module.exports = (app) => {
       return res.status(400).json({ err: 'Not logged in' });
     }
 
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     try {
       const data = await sagasuService.undislikeAnime(
         req.body.mal_id,
@@ -164,6 +194,10 @@ module.exports = (app) => {
       return res.status(400).json({ err: 'Not logged in' });
     }
 
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     try {
       const data = await sagasuService.getSavedAnimes(req.user.id, true);
 
@@ -183,6 +217,10 @@ module.exports = (app) => {
     if (!req.isAuthenticated()) {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
+    }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
     }
 
     try {
@@ -205,6 +243,11 @@ module.exports = (app) => {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
     }
+
+    if (req.cookies !== undefined && !req.cookies['loggedIn']) {
+      res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
+    }
+
     try {
       const data = await sagasuService.unsaveAnime(
         req.body.mal_id,
