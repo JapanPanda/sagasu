@@ -29,7 +29,7 @@ module.exports = (app) => {
   });
 
   // get the liked animes
-  route.get('/liked', async (req, res) => {
+  route.get('/like', async (req, res) => {
     if (!req.isAuthenticated()) {
       res.cookie('loggedIn', 'false', { maxAge: 0 });
       return res.status(400).json({ err: 'Not logged in' });
@@ -197,7 +197,6 @@ module.exports = (app) => {
     if (req.cookies !== undefined && !req.cookies['loggedIn']) {
       res.cookie('loggedIn', 'true', { maxAge: 3600000 * 24 * 138 });
     }
-
     try {
       const data = await sagasuService.getSavedAnimes(req.user.id, true);
 
