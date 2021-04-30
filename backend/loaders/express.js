@@ -9,6 +9,8 @@ const redis = require('redis');
 let RedisStore = require('connect-redis')(session);
 let redisClient = redis.createClient();
 
+const cookieParser = require('cookie-parser');
+
 module.exports = (app) => {
   app.get('/status', (req, res) => {
     res.status(200).end();
@@ -23,6 +25,8 @@ module.exports = (app) => {
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
+
+  app.use(cookieParser());
 
   app.use(
     session({
