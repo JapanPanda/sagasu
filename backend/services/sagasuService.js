@@ -249,48 +249,7 @@ const undislikeAnime = async (mal_id, user_id) => {
   return data;
 };
 
-/*
-  return db
-    .one(
-      `SELECT liked FROM account
-                                WHERE id = $1`,
-      [user_id]
-    )
-    .then((row) => {
-      if (!withProps) {
-        return row.liked;
-      } else {
-        return mapMalIDtoEntry(row.liked);
-      }
-    })
-    .catch((err) => {
-      logger.error(
-        `Something went wrong when querying for liked animes.\n${err.stack}`
-      );
-      return null;
-    });
-*/
 const getSavedAnimes = async (user_id, withProps) => {
-  // return db
-  //   .one(
-  //     `SELECT saved FROM account
-  //                               WHERE id = $1`,
-  //     [user_id]
-  //   )
-  //   .then((row) => {
-  //     if (!withProps) {
-  //       return row.saved;
-  //     }
-  //     return mapMalIDtoEntry(row.saved);
-  //   })
-  //   .catch((err) => {
-  //     console.log(user_id);
-
-  //     logger.error(
-  //       `Something went wrong when querying for saved animes.\n${err.stack}`
-  //     );
-  //     return null;
-  //   });
   return db
     .one(
       `SELECT saved FROM account
