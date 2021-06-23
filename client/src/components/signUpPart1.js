@@ -59,7 +59,7 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div className='header'>
         <h3>「好きなアニメ」</h3>
         <h1>Liked Anime</h1>
