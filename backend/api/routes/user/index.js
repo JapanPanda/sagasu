@@ -3,9 +3,33 @@ const route = express.Router();
 const authService = require('../../../services/authService');
 
 const passport = require('passport');
+const { errors } = require('recombee-api-client');
 
 module.exports = (app) => {
   app.use('/user', route);
+
+  route.post('/validateSignup', async (req, res) => {
+    const error = await authService.validateUser(req.body);
+
+    if (error) {
+      let errorMsg;
+      if (error.errors !== undefined) {
+        errorMsg = error.errors
+          .map((ele) => {
+            return ele.charAt(0).toUpperCase() + ele.slice(1);
+          })
+          .reduce((acc, curr) => {
+            return (acc += '\n' + curr);
+          });
+      } else {
+        errorMsg = error.error;
+      }
+      console.log(errorMsg);
+      return res.status(400).json({ error: error, msg: errorMsg });
+    }
+
+    return res.json('Success');
+  });
 
   route.post('/signup', async (req, res) => {
     const { user, error } = await authService.signup(req.body);

@@ -25,8 +25,8 @@ const SignUp = () => {
         username: part0.username,
         email: part0.email,
         password: part0.password,
-        liked: part1.map((anime) => anime.mal_id),
-        disliked: part2.map((anime) => anime.mal_id),
+        liked: part1 === null ? [] : part1.map((anime) => anime.mal_id),
+        disliked: part2 === null ? [] : part2.map((anime) => anime.mal_id),
       })
       .then((res) => {
         if (res.data.error === undefined) {

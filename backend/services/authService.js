@@ -16,9 +16,41 @@ const signupSchema = yup.object().shape({
   disliked: yup.array().required(),
 });
 
+const signupInfoSchema = yup.object().shape({
+  username: yup.string().required().min(3).max(16),
+  password: yup.string().required().min(6).max(254),
+  email: yup.string().required().email(),
+});
+
+const validateUser = async (user) => {
+  return signupInfoSchema
+    .validate(user, { abortEarly: false })
+    .then(async (validatedUser) => {
+      // check to see if username and email are unique
+      try {
+        let userbyUsername = await findUserbyUsername(validatedUser.username);
+
+        let userbyEmail = await findUserbyEmail(validatedUser.email);
+
+        if (userbyEmail && userbyUsername) {
+          return { error: 'Email and username already taken!' };
+        } else if (userbyEmail) {
+          return { error: `Email already taken!` };
+        } else if (userbyUsername) {
+          return { error: 'Username already taken!' };
+        }
+      } catch (err) {
+        return { error: 'Something went horribly wrong...' };
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const signup = async (user) => {
   return signupSchema
-    .validate(user)
+    .validate(user, { abortEarly: false })
     .then(async (validatedUser) => {
       // check to see if username and email are unique
       try {
@@ -38,7 +70,7 @@ const signup = async (user) => {
       }
 
       const hashedPassword = await argon.hash(user.password);
-
+      console.log(user);
       // attempt to insert user into database
       return db
         .one(
@@ -51,7 +83,6 @@ const signup = async (user) => {
           logger.info(`Successfully added user ${user.username} to database.`);
 
           // attempt to like and dislike all the animes (perhaps find a better way to do this)
-
           for (let anime of user.liked) {
             sagasuService.likeAnime(anime, res.id);
           }
@@ -123,6 +154,7 @@ const findUserbyId = async (id) => {
 };
 
 module.exports = {
+  validateUser: validateUser,
   signup: signup,
   findUserbyId: findUserbyId,
   findUserbyUsername: findUserbyUsername,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useState as useGlobalState } from '@hookstate/core';
 import globalState from '../hookstate/globalState';
+import axios from 'axios';
 
 const SignUpPart0 = ({ setPage, setPart0, part0 }) => {
   const [username, setUsername] = useState('');
@@ -21,65 +22,51 @@ const SignUpPart0 = ({ setPage, setPart0, part0 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      username === '' ||
-      password === '' ||
-      confirmPassword === '' ||
-      email === ''
-    ) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Please fill out all the fields.',
+    axios
+      .post(
+        process.env.REACT_APP_SERVER_URL + '/api/user/validateSignup',
+        {
+          username: username,
+          password: password,
+          email: email,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (!agree) {
+          state.flashMessage.set({
+            title: 'Signup Error',
+            error: true,
+            msg: 'Please agree to the terms and services in order to sign up.',
+          });
+          state.showFlash.set(true);
+          state.loggedIn.set(false);
+        } else if (password !== confirmPassword) {
+          state.flashMessage.set({
+            title: 'Signup Error',
+            error: true,
+            msg: 'Passwords are not matching!',
+          });
+          state.showFlash.set(true);
+          state.loggedIn.set(false);
+        } else {
+          setPart0({ username: username, email: email, password: password });
+          setPage(1);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response && err.response.status === 400) {
+          console.log(err.response.data);
+          state.flashMessage.set({
+            title: 'Signup Error',
+            error: true,
+            msg: err.response.data.msg,
+          });
+          state.showFlash.set(true);
+          state.loggedIn.set(false);
+        }
       });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else if (!agree) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Please agree to the terms and services in order to sign up.',
-      });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else if (password !== confirmPassword) {
-      state.flashMessage.set({
-        title: 'Signup Error',
-        error: true,
-        msg: 'Passwords are not matching!',
-      });
-      state.showFlash.set(true);
-      state.loggedIn.set(false);
-    } else {
-      setPart0({ username: username, email: email, password: password });
-      setPage(1);
-      // axios
-      //   .post(
-      //     process.env.REACT_APP_SERVER_URL + '/api/user/signup',
-      //     {
-      //       username: username,
-      //       password: password,
-      //       email: email,
-      //     },
-      //     { withCredentials: true }
-      //   )
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       state.flashMessage.set({
-      //         title: 'Signup Successful',
-      //         error: false,
-      //         msg:
-      //           'You have successfully signed up! Please check your e-mail to confirm your registration.',
-      //       });
-      //       state.showFlash.set(true);
-      //       state.loggedIn.set(false);
-      //       navigate('/login');
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.error(err);
-      //   });
-    }
   };
 
   return (

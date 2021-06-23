@@ -54,7 +54,6 @@ const App = () => {
       })
       .then(() => {
         const tempState = state.loggedIn;
-        console.log(tempState.get());
         tempState.set(false);
         navigate('/');
       })
@@ -65,29 +64,6 @@ const App = () => {
 
   const checkLoggedIn = useCallback(() => {
     const tempState = state.loggedIn;
-    console.log(tempState.get());
-    // axios
-    //   .get(process.env.REACT_APP_SERVER_URL + '/api/user/isLoggedIn', {
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     if (res.data.loggedIn) {
-    //       if (loggedIn !== true) {
-    //         tempState.set(true);
-    //       }
-    //     } else {
-    //       if (loggedIn !== false) {
-    //         tempState.set(false);
-    //       }
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     if (err.response.status === 401) {
-    //       if (loggedIn) {
-    //         tempState.set(false);
-    //       }
-    //     }
-    //   });
 
     // checks if user has a session without http requests
     if (document.cookie.indexOf('loggedIn=') !== -1) {
