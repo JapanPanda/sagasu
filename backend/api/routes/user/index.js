@@ -66,6 +66,9 @@ module.exports = (app) => {
 
   route.get('/logout', (req, res) => {
     req.logout();
+    res.cookie('loggedIn', 'false', {
+      maxAge: 0,
+    });
     res.json({ msg: 'Success' });
   });
 };

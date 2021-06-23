@@ -9,6 +9,7 @@ const searchAnime = async (query) => {
     SELECT image_url, title, title_eng, year, mal_id
     FROM ANIME
     WHERE title ILIKE $1 OR title_eng ILIKE $1
+    limit 20
     `,
       [`%${query}%`]
     )
