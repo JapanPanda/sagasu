@@ -42,7 +42,8 @@ const SignUpPart2 = ({ submit, setPage, setPart2, part2 }) => {
     setPart2(tmp);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/anime/search', {
         params: { anime: query },
@@ -75,8 +76,7 @@ const SignUpPart2 = ({ submit, setPage, setPart2, part2 }) => {
               }}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleSearch();
+                  handleSearch(e);
                 }
               }}
             />

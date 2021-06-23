@@ -54,6 +54,7 @@ const App = () => {
       })
       .then(() => {
         const tempState = state.loggedIn;
+        console.log(tempState.get());
         tempState.set(false);
         navigate('/');
       })
@@ -64,6 +65,7 @@ const App = () => {
 
   const checkLoggedIn = useCallback(() => {
     const tempState = state.loggedIn;
+    console.log(tempState.get());
     // axios
     //   .get(process.env.REACT_APP_SERVER_URL + '/api/user/isLoggedIn', {
     //     withCredentials: true,

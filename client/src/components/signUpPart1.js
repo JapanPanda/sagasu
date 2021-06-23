@@ -18,6 +18,7 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Submitting');
     setPart1(liked);
     setPage(2);
   };
@@ -42,13 +43,15 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
     setPart1(tmp);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/anime/search', {
         params: { anime: query },
       })
       .then((res) => {
-        setResults(res.data);
+        // check if our response is an empty object or array
+        setResults(Object.keys(res.data).length === 0 ? [] : res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -75,8 +78,7 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
               }}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleSearch();
+                  handleSearch(e);
                 }
               }}
             />

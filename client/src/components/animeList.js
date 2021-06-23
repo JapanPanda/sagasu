@@ -24,7 +24,7 @@ const AnimeList = ({ filtered, delAnime, empty_msg }) => {
       {filtered.length > 0 &&
         filtered.map((anime) => {
           return (
-            <li className='anime-list-entry'>
+            <li key={anime.title} className='anime-list-entry'>
               <div className='anime-list-title'>
                 <h3>{anime.title}</h3>
               </div>
