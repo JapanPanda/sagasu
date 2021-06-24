@@ -2,7 +2,7 @@
 
 ## Signup
 
-~[](SignUp.gif)
+![](SignUp.gif)
 
 ## Demo
 
