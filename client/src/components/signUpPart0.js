@@ -21,7 +21,6 @@ const SignUpPart0 = ({ setPage, setPart0, part0 }) => {
   const state = useGlobalState(globalState);
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post(
         process.env.REACT_APP_SERVER_URL + '/api/user/validateSignup',

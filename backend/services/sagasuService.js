@@ -29,7 +29,7 @@ const recommendAnime = async (user_id) => {
   return recombeeClient
     .send(
       new rqs.RecommendItemsToUser(user_id, 1, {
-        rotationRate: 0,
+        rotationRate: 0.1,
         cascadeCreate: true,
       })
     )

@@ -49,7 +49,6 @@ const MobileNavbar = ({ signOut }) => {
                 </Link>
               </div>
               <div className='navbar-item'>
-                {' '}
                 <Link
                   onClick={() => {
                     setExpand(false);
