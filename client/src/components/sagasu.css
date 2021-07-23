@@ -139,3 +139,100 @@
 .anime-anilist-button {
   background-color: #3577ff;
 }
+
+.desktop-layout {
+  display: none;
+}
+
+.anime-rating-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.desktop-info {
+  width: 70%;
+}
+
+@media (min-width: 961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .mobile-layout {
+    display: none;
+  }
+
+  .desktop-container {
+    border-radius: 3%;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #414141;
+  }
+
+  .desktop-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 95vh;
+  }
+
+  .anime-image {
+    width: 30%;
+    margin-right: 2%;
+  }
+
+  .anime-image img {
+    border-radius: 5%;
+    width: 100%;
+    height: auto;
+  }
+
+  .anime-title h3 {
+    text-align: left;
+    line-height: 1em;
+    font-size: 2.5em;
+    margin-bottom: 0px;
+  }
+
+  .anime-title h5 {
+    font-size: 2em;
+  }
+
+  .anime-meta {
+    width: 47%;
+  }
+
+  .anime-rankings {
+    width: 47%;
+  }
+
+  .anime-ranking-column {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .anime-ranking-column h4,
+  h5 {
+    width: 100%;
+    margin: 0;
+  }
+
+  .anime-ranking-column h5 {
+    margin-top: -20px;
+  }
+
+  .anime-buttons {
+    justify-content: space-between;
+  }
+
+  .anime-buttons button {
+    width: 20%;
+    border-radius: 0;
+    padding: 10px 15px;
+    font-size: 1.1em;
+  }
+}

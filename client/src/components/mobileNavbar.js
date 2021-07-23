@@ -75,7 +75,6 @@ const MobileNavbar = ({ signOut }) => {
                   Dislikes
                 </Link>
               </div>
-              <div className='navbar-item'>Account</div>
               <div className='navbar-item'>
                 <Link
                   onClick={() => {
