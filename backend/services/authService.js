@@ -70,7 +70,6 @@ const signup = async (user) => {
       }
 
       const hashedPassword = await argon.hash(user.password);
-      console.log(user);
       // attempt to insert user into database
       return db
         .one(

@@ -5,9 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './animeList.css';
 
 const AnimeList = ({ filtered, delAnime, empty_msg }) => {
-  useEffect(() => {
-    console.log(filtered);
-  }, [filtered]);
+  useEffect(() => {}, [filtered]);
   return (
     <ul
       key={filtered}

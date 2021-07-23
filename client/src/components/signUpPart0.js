@@ -54,9 +54,9 @@ const SignUpPart0 = ({ setPage, setPart0, part0 }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         if (err.response && err.response.status === 400) {
-          console.log(err.response.data);
+          console.error(err.response.data);
           state.flashMessage.set({
             title: 'Signup Error',
             error: true,

@@ -18,7 +18,6 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitting');
     setPart1(liked);
     setPage(2);
   };

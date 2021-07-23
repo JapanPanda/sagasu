@@ -60,8 +60,7 @@ const Login = () => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            console.log(err.response.data.msg);
-            console.log(state.showFlash);
+            console.error(err.response.data.msg);
             state.flashMessage.set({
               title: 'Login Error',
               error: true,

@@ -24,7 +24,7 @@ module.exports = (app) => {
       } else {
         errorMsg = error.error;
       }
-      console.log(errorMsg);
+      console.error(errorMsg);
       return res.status(400).json({ error: error, msg: errorMsg });
     }
 
