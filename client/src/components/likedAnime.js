@@ -20,7 +20,7 @@ const LikedAnimeList = () => {
   const updateLikedAnimes = () => {
     state.loading.set(true);
     axios
-      .get(process.env.REACT_APP_SERVER_URL + '/api/sagasu/like', {
+      .get('/api/sagasu/like', {
         withCredentials: true,
       })
       .then((res) => {
@@ -47,7 +47,7 @@ const LikedAnimeList = () => {
     const updateLikedAnimesInit = async () => {
       setLoading(true);
       axios
-        .get(process.env.REACT_APP_SERVER_URL + '/api/sagasu/like', {
+        .get('/api/sagasu/like', {
           withCredentials: true,
         })
         .then((res) => {
@@ -76,7 +76,7 @@ const LikedAnimeList = () => {
   const handleUnlike = async (anime) => {
     return axios
       .post(
-        process.env.REACT_APP_SERVER_URL + '/api/sagasu/unlike',
+        '/api/sagasu/unlike',
         { mal_id: anime.mal_id },
         { withCredentials: true }
       )
@@ -102,7 +102,7 @@ const LikedAnimeList = () => {
 
     const pr1 = handleUnlike(anime);
     const pr2 = axios.post(
-      process.env.REACT_APP_SERVER_URL + '/api/sagasu/dislike',
+      '/api/sagasu/dislike',
       { mal_id: anime.mal_id },
       { withCredentials: true }
     );
@@ -130,7 +130,7 @@ const LikedAnimeList = () => {
 
     const pr1 = handleUnlike(anime);
     const pr2 = axios.post(
-      process.env.REACT_APP_SERVER_URL + '/api/sagasu/save',
+      '/api/sagasu/save',
       { mal_id: anime.mal_id },
       { withCredentials: true }
     );

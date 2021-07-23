@@ -43,7 +43,7 @@ const Login = () => {
       state.loading.set(true);
       axios
         .post(
-          process.env.REACT_APP_SERVER_URL + '/api/user/login',
+          '/api/user/login',
           {
             username: username,
             password: password,

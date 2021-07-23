@@ -23,7 +23,7 @@ const SignUpPart0 = ({ setPage, setPart0, part0 }) => {
     e.preventDefault();
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL + '/api/user/validateSignup',
+        '/api/user/validateSignup',
         {
           username: username,
           password: password,

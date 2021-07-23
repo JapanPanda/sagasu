@@ -46,7 +46,7 @@ const SignUpPart1 = ({ setPage, setPart1, part1 }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     axios
-      .get(process.env.REACT_APP_SERVER_URL + '/api/anime/search', {
+      .get('/api/anime/search', {
         params: { anime: query },
       })
       .then((res) => {

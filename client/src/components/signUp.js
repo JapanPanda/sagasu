@@ -21,7 +21,7 @@ const SignUp = () => {
 
   const submit = () => {
     axios
-      .post(process.env.REACT_APP_SERVER_URL + '/api/user/signup', {
+      .post('/api/user/signup', {
         username: part0.username,
         email: part0.email,
         password: part0.password,

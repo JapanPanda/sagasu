@@ -18,7 +18,7 @@ const Sagasu = () => {
 
   const getNextRecommendation = () => {
     axios
-      .get(process.env.REACT_APP_SERVER_URL + '/api/sagasu/recommend', {
+      .get('/api/sagasu/recommend', {
         withCredentials: true,
       })
       .then((res) => {
@@ -43,7 +43,7 @@ const Sagasu = () => {
     state.loading.set(true);
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL + '/api/sagasu/like',
+        '/api/sagasu/like',
         { mal_id: currentAnime.mal_id },
         { withCredentials: true }
       )
@@ -66,7 +66,7 @@ const Sagasu = () => {
     state.loading.set(true);
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL + '/api/sagasu/save',
+        '/api/sagasu/save',
         { mal_id: currentAnime.mal_id },
         { withCredentials: true }
       )
@@ -94,7 +94,7 @@ const Sagasu = () => {
     state.loading.set(true);
     axios
       .post(
-        process.env.REACT_APP_SERVER_URL + '/api/sagasu/dislike',
+        '/api/sagasu/dislike',
         { mal_id: currentAnime.mal_id },
         { withCredentials: true }
       )

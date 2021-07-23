@@ -46,7 +46,7 @@ library.add(
 const App = () => {
   const state = useGlobalState(globalState);
   const { loggedIn, showFlash, loading } = state.get();
-
+  console.log(process.env);
   const signOut = () => {
     axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/user/logout', {
