@@ -7,7 +7,7 @@ const passport = require('passport');
 const redis = require('redis');
 
 let RedisStore = require('connect-redis')(session);
-let redisClient = redis.createClient();
+let redisClient = redis.createClient({ port: process.env.REDIS_PORT });
 
 const cookieParser = require('cookie-parser');
 
