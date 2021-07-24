@@ -1,12 +1,6 @@
 # Sagasu Demo
 
-## Signup
-
-![](SignUp.gif)
-
-## Demo
-
-![](Demo.gif)
+Live at [www.sagasu.moe](https://www.sagasu.moe)
 
 ## What is Sagasu
 
