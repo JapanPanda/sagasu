@@ -11,6 +11,10 @@ const db = require('../loaders/database');
 const axios = require('axios');
 
 const recombee = require('recombee-api-client');
+const client = new recombee.ApiClient(
+  process.env.RECOMBEE_ID,
+  process.env.RECOMBEE_TOKEN
+);
 const rqs = recombee.requests;
 
 const sleep = (ms) => {
