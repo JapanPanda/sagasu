@@ -14,3 +14,8 @@ Sagasu is an open-source recommender system for anime! Simply put, it utilizes R
 - Node.js
 - Redis
 - Recombee API, self-hosted Jikan API
+
+## Todo
+
+- [ ] Manually search anime (outside of signup) to add to likes/saved/dislikes
+- [ ] Make popup go away when you navigate outside of the current page
